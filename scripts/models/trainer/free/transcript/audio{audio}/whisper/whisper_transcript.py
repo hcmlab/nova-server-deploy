@@ -1,14 +1,15 @@
 # Copyright (c) 2023, Tobias Hallmen
 
 REQUIREMENTS = [
-'torch==2.0.0 --extra-index-url=https://download.pytorch.org/whl/cu117  --no-cache-dir',
+'torch==2.0.0 --extra-index-url=https://download.pytorch.org/whl/cu117 --no-cache-dir',
 'torchaudio==2.0.0 --extra-index-url=https://download.pytorch.org/whl/cu117 --no-cache-dir',
 'setuptools-rust',
 'openai-whisper',
 'lhotse==1.12.0',
 'num2words==0.5.12',
 'pyloudnorm',
-'pyannote.audio'
+'pyannote.audio',
+'finch-clust'
 ]
 
 
@@ -75,7 +76,7 @@ class TrainerClass:
     def predict(self):
         import torch
         from lhotse import CutSet, align_with_torchaudio, annotate_with_whisper
-        import numpy
+        import numpy as np
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         torch.cuda.empty_cache()
 
