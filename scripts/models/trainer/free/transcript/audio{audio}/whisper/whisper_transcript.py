@@ -1,24 +1,20 @@
 # Copyright (c) 2023, Tobias Hallmen
 
-import sys
-if not hasattr(sys, 'argv'):
-    sys.argv  = ['']
+REQUIREMENTS = [
+'torch==2.0.0 --extra-index-url=https://download.pytorch.org/whl/cu117  --no-cache-dir',
+'torchaudio==2.0.0 --extra-index-url=https://download.pytorch.org/whl/cu117 --no-cache-dir',
+'setuptools-rust',
+'openai-whisper',
+'lhotse==1.12.0',
+'num2words==0.5.12',
+'pyloudnorm',
+'pyannote.audio'
+]
 
-
-#from pathlib import Path
-#from hcai_datasets.hcai_nova_dynamic.hcai_nova_dynamic_iterable import HcaiNovaDynamicIterable
-#from hcai_dataset_utils.bridge_pytorch import BridgePyTorch
-#from torchaudio import transforms as audio_transforms
-#from torchvision import transforms as vision_transforms
-import torch
-#import time
-#import whisper
-import numpy as np
-import logging
-
-from lhotse import Recording, RecordingSet, CutSet, align_with_torchaudio, annotate_with_whisper
 
 class TrainerClass:
+   
+ 
     def __init__(self, ds_iter, logger, request_form=None):
         self.model = None
         self.ds_iter = ds_iter
@@ -30,6 +26,8 @@ class TrainerClass:
         self.request_form = request_form
         self.delete = []
 
+
+
     def train(self):
         pass
         
@@ -40,6 +38,7 @@ class TrainerClass:
         pass
 
     def preprocess(self):
+        from lhotse import Recording, RecordingSet
         audios = [f"{self.ds_iter.nova_data_dir}/{self.ds_iter.dataset}/{sess}/{rol}.{strim}.{self.ds_iter.data_info[f'{rol}.{strim}'].file_ext}"
                   for strim in self.ds_iter.data_streams for rol in self.ds_iter.roles for sess in self.ds_iter.sessions]
         self.logger.info('Found:')
@@ -49,6 +48,7 @@ class TrainerClass:
             import soundfile
             import pyloudnorm
             import tempfile
+           
             records = []
             for a in audios:
                 data, sr = soundfile.read(a)
@@ -73,6 +73,9 @@ class TrainerClass:
 
 
     def predict(self):
+        import torch
+        from lhotse import CutSet, align_with_torchaudio, annotate_with_whisper
+        import numpy
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         torch.cuda.empty_cache()
 
