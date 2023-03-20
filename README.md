@@ -17,9 +17,9 @@ Not yet officially supported
 # Usage
 Active the created virtual environment and run  .\nova_server\nova_backend.py using the following arguments:
 
-  `--host`: The ip address to bin the server to. Usually the ip of your server or 0.0.0.0
-  `--port`:  The port to listen for incoming commands
-  `--cml_dir`: The coorporative machine learning directory as specified in NOVA
-  `--data_dir`: The directory where your training data resides as specified in NOVA
+  `--host`: The ip address to bin the server to. Usually the ip of your server or 0.0.0.0  
+  `--port`:  The port to listen for incoming commands  
+  `--cml_dir`: The coorporative machine learning directory as specified in NOVA  
+  `--data_dir`: The directory where your training data resides as specified in NOVA  
 
 You can als edit the `run_server.cmd` to refelect those settings for convenience.
