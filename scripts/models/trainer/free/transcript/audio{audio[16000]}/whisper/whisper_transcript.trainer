@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<trainer ssi-v="5">
+    <info trained="true" seed="1234"/>
+	<meta balance="under" backend="Python"/>	
+    <model create="PythonModel" stream="0" path="whisper" script="whisper_transcript.py" optstr="{loudness normalisation:BOOL:false};{whisper:LIST:large,base,tiny,small,medium,tiny.en,small.en,base.en,medium.en,large.en};{translate:BOOL:false};{sentence logic:BOOL:false};{align:BOOL:true};{wav2vec2:LIST:large,base};{diarise:BOOL:false};{roles:STRING:$(roles)};{split audio:BOOL:false}"/>
+</trainer>
